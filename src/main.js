@@ -3,11 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// 引入完整的饿了么组件库
-import 'font-awesome/scss/font-awesome.scss'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/scss/element-variables.scss'
+import '@fortawesome/fontawesome-free/scss/fontawesome.scss'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
