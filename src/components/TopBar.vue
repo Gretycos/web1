@@ -2,26 +2,23 @@
 <!-- 使用说明：<top-bar></top-bar> -->
 <template>
   <div id="topbar-wrap" :class="{ topCollapsed: isCollapse }">
-    <el-row type="flex" justify="space-between">
-      <el-col :span="5">
-        <i :class="[isCollapse ? 'icon-spread': 'icon-recovery','iconfont']" @click="toggleSiderBar"></i>
-      </el-col>
+    <el-row type="flex" justify="end">
+
       <el-col :span="12">
         <el-row type="flex" class="row-right" justify="end" style="margin-right:-15px">
           <el-col :span="5">
-            <a class="animated fadeIn">{{$t('m.topbar.sayHi')}}，{{userName}}</a>
+            <a class="animated fadeIn" v-if="username">{{username}}</a>
+            <a class="animated fadeIn" v-else href="/login">点击登录</a>
           </el-col>
           <el-col :span="2">
-            <i class="fa fa-language" title="切换语言" @click="toggleLanguage"></i>
+            <i :class="[isFullscreen ? 'fa-compress': 'fa-arrows-alt','fa']" title="全屏" @click="toggleFullscreen"></i>
           </el-col>
-          <el-col :span="2">
-            <i :class="[isFullscreen? 'fa-compress': 'fa-arrows-alt','fa ']" title="全屏" @click="toggleFullscreen"></i>
-          </el-col>
-          <el-col :span="2">
+          <el-col :span="2" v-if="username">
             <i class="fa fa-power-off logout" title="退出" @click.prevent="logout"></i>
           </el-col>
         </el-row>
       </el-col>
+
     </el-row>
   </div>
 </template>
@@ -32,45 +29,29 @@ export default {
   name: "topbar",
   data() {
     return {
-      userName: localStorage.userName || "",
+      username: sessionStorage.username,
       isFullscreen: false
     };
   },
-  computed: {
-    isCollapse() {
-      return this.$store.state.common.isCollapse;
-    }
-  },
   methods: {
-    toggleSiderBar() {
-      this.$store.commit("toggleSiderBar");
-    },
-    toggleLanguage() {
-      let locale = this.$i18n.locale;
-      locale === "zh" ? (this.$i18n.locale = "en") : (this.$i18n.locale = "zh");
-      let info = locale === "en" ? "切换成功" : "change language successfully";
-      this.$message.success(info);
-    },
     toggleFullscreen() {
       if (!screenfull.enabled) {
         this.$message.warning("您的浏览器不支持全屏");
         return false;
       }
       screenfull.toggle();
-      // isFullscreen 居然是反的
-      this.isFullscreen = !screenfull.isFullscreen;
+      this.isFullscreen = !screenfull.full;
     },
     logout() {
-      localStorage.clear();
-      this.$bus.$emit("stopMusic");
-      this.$router.push("signin");
+      sessionStorage.clear();
+      // this.$router.push("signin");
     }
   },
   watch: {
-    $route(to, from) {
-      this.pathName = this.$route.path.substring(1);
-      this.nowPath = this.$route.path;
-    }
+    // $route(to, from) {
+    //   this.pathName = this.$route.path.substring(1);
+    //   this.nowPath = this.$route.path;
+    // }
   }
 };
 </script>
