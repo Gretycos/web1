@@ -9,7 +9,6 @@
       <router-view class="page-component-wrap animated fadeIn"></router-view>
     </div>
   </div>
-  </div>
 </template>
 
 <script>

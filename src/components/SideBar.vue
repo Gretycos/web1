@@ -16,7 +16,7 @@
         <!-- 一级菜单包裹层 -->
         <template slot="title">
           <i class="el-icon-document"></i>
-          <span slot="title">课程概况</span>
+          <span slot="title">教学大纲</span>
         </template>
 
         <!-- 二级菜单选项 -->
@@ -26,9 +26,9 @@
         </el-menu-item>
 
         <!-- 二级菜单选项 -->
-        <el-menu-item index="/outline">
+        <el-menu-item index="/details">
           <i class="fa fa-long-arrow-right"></i>
-          <span slot="title">教学大纲</span>
+          <span slot="title">课程详情</span>
         </el-menu-item>
 
       </el-submenu>
@@ -161,5 +161,9 @@ export default {
 // 改变元素属性，要不动画效果不管用，是不是很厉害啊？哈哈哈
 .twist1 {
   display: block;
+}
+a {
+  text-decoration: none;
+  color:white;
 }
 </style>

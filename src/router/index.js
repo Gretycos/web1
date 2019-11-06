@@ -8,8 +8,8 @@ const index = ()=> import("@/layout/Index")
 //课程介绍
 const introduction = ()=> import("@/layout/Introduction")
 
-//教学大纲
-const outline = ()=> import("@/layout/Outline")
+//课程详情
+const details = ()=> import("@/layout/Details")
 
 //教学课件
 const courseware = ()=> import("@/layout/Courseware")
@@ -37,11 +37,11 @@ const router = new Router({
           component: introduction
         },
         {
-          path: "outline",
+          path: "details",
           meta:{
-            title: "教学大纲"
+            title: "课程详情"
           },
-          component: outline
+          component: details
         },
         {
           path: '/courseware',
