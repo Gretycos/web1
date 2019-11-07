@@ -1,7 +1,7 @@
 <!-- 顶部导航组件 -->
 <!-- 使用说明：<top-bar></top-bar> -->
 <template>
-  <div id="topbar-wrap" :class="{ topCollapsed: isCollapse }">
+  <div id="topbar-wrap">
     <el-row type="flex" justify="end">
 
       <el-col :span="12">
@@ -25,6 +25,8 @@
 <script>
 import "@/assets/libs/screenfull.js";
 import "../../static/css/iconfont.css";
+import {logout} from "../api/api";
+
 export default {
   name: "topbar",
   data() {
@@ -44,7 +46,19 @@ export default {
     },
     logout() {
       sessionStorage.clear();
-      // this.$router.push("signin");
+      logout().then(res=>{
+          console.log(res)
+          let { msg, status, data } = res;
+          if (status!=='200'){
+              this.$message({
+                  message: msg,
+                  type: 'error'
+              });
+          }else{
+              this.$router.go(0);
+          }
+      })
+
     }
   },
   watch: {
@@ -52,7 +66,11 @@ export default {
     //   this.pathName = this.$route.path.substring(1);
     //   this.nowPath = this.$route.path;
     // }
-  }
+  },
+    created() {
+      console.log(sessionStorage.username)
+        console.log(sessionStorage.auth)
+    }
 };
 </script>
 <style scoped lang="scss">

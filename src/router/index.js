@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
+//登录
+const login = ()=> import("@/layout/Login")
+
 //框架
 const index = ()=> import("@/layout/Index")
 
@@ -65,6 +68,13 @@ const router = new Router({
           component: message
         }
       ]
+    },
+    {
+      path: "/login",
+      meta:{
+        title:"登录"
+      },
+      component: login
     }
   ]
 })
