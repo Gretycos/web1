@@ -20,13 +20,9 @@ export const logout = ()=>{
   }).then(res=>res.data)
 }
 
-export function getCourseWare(){
-  axios.post('http://127.0.0.1:8080/getCourseWare',{},{
+export const getCourseWare = ()=> {
+  return axios.post('http://127.0.0.1:8080/getCourseWare',{},{
     withCredentials : true
-  }).then((res)=>{
-    console.log(res.data)
-  }).catch((err)=>{
-    console.log(err);
-  })
+  }).then(res=>res.data)
 }
 
