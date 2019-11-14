@@ -17,11 +17,14 @@ const details = ()=> import("@/layout/Details")
 //教学课件
 const courseware = ()=> import("@/layout/Courseware")
 
-//教学课件
+//视频资料
 const video = ()=> import("@/layout/Video")
 
-//教学课件
+//留言板
 const message = ()=> import("@/layout/Message")
+
+//我的留言
+const myMessage = ()=> import("@/layout/MyMessage")
 
 
 const router = new Router({
@@ -66,6 +69,13 @@ const router = new Router({
             title: "留言板"
           },
           component: message
+        },
+        {
+          path: '/myMessage',
+          meta:{
+            title: "我的留言"
+          },
+          component: myMessage
         }
       ]
     },

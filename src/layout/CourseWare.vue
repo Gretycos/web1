@@ -66,7 +66,9 @@
                 getCourseWare().then(res=>{
                     console.log(res);
                     let { msg, status, data } = res;
-                    if (status=='404'){
+                    if(status=='200'){
+                        this.listCourseWare=data;
+                    }else{
                         this.$message({
                             message: msg,
                             type: 'error',
@@ -74,12 +76,10 @@
                         });
                         sessionStorage.clear();
                         this.$router.push("/login")
-                    }else if(status=='200'){
-                        this.listCourseWare=data;
                     }
                 });
             }else{
-                this.$router.push("/login")
+                this.$router.push("/login");
             }
 
         },
@@ -94,7 +94,7 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 a{
   font-size: medium;
   text-decoration: none;

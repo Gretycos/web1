@@ -50,25 +50,36 @@
                         let loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
                         requestLogin(loginParams).then(res => {
                             this.isLogged = false;
+                            // console.log(res);
                             let { msg, status, data } = res;
-                            if (status !== '200') {
+                            if (status == '200') {
+                                let id = {id: this.ruleForm2.account};
+                                getUser(id).then(res1=>{
+                                    // console.log(res1);
+                                    let msg1=res1.msg;
+                                    let status1=res1.status;
+                                    let data1=res1.data;
+                                    if(status1 == '200'){
+                                        sessionStorage.setItem('id', data1.id);
+                                        sessionStorage.setItem('nickname', data1.nickname);
+                                        sessionStorage.setItem('gender', data1.gender);
+                                        sessionStorage.setItem('email', data1.email);
+                                        sessionStorage.setItem('birthday', data1.birthday);
+                                        sessionStorage.setItem('username', data1.name);
+                                        sessionStorage.setItem('auth', data.authorities[0].authority);
+                                        this.$router.push({ path: '/introduction' });
+                                    }else{
+                                        this.$message({
+                                            message: msg1,
+                                            type: 'error'
+                                        });
+                                    }
+                                })
+                            } else {
                                 this.$message({
                                     message: msg,
                                     type: 'error'
                                 });
-                            } else {
-                                // console.log(data)
-                                let id = {id: this.ruleForm2.account}
-                                getUser(id).then(res1=>{
-                                    sessionStorage.setItem('id', res1.id);
-                                    sessionStorage.setItem('nickname', res1.nickname);
-                                    sessionStorage.setItem('gender', res1.gender);
-                                    sessionStorage.setItem('email', res1.email);
-                                    sessionStorage.setItem('birthday', res1.birthday);
-                                    sessionStorage.setItem('username', res1.name);
-                                    sessionStorage.setItem('auth', data.authorities[0].authority);
-                                    this.$router.push({ path: '/introduction' });
-                                })
                             }
                         });
                     } else {

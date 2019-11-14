@@ -45,11 +45,34 @@
         <span slot="title">视频资料</span>
       </el-menu-item>
 
-      <!-- 单级菜单 -->
-      <el-menu-item index="/message">
-        <i class="el-icon-document"></i>
-        <span slot="title">留言板</span>
-      </el-menu-item>
+<!--      &lt;!&ndash; 单级菜单 &ndash;&gt;-->
+<!--      <el-menu-item index="/message">-->
+<!--        <i class="el-icon-document"></i>-->
+<!--        <span slot="title">留言板</span>-->
+<!--      </el-menu-item>-->
+
+      <!-- 多级菜单外壳 -->
+      <el-submenu index="/">
+
+        <!-- 一级菜单包裹层 -->
+        <template slot="title">
+          <i class="el-icon-document"></i>
+          <span slot="title">留言</span>
+        </template>
+
+        <!-- 二级菜单选项 -->
+        <el-menu-item index="/message">
+          <i class="fa fa-long-arrow-right"></i>
+          <span slot="title">留言板</span>
+        </el-menu-item>
+
+        <!-- 二级菜单选项 -->
+        <el-menu-item index="/myMessage">
+          <i class="fa fa-long-arrow-right"></i>
+          <span slot="title">我的留言</span>
+        </el-menu-item>
+
+      </el-submenu>
 
 <!--      <template v-for="item in menu">-->
 
@@ -85,16 +108,12 @@ export default {
   name: "sidebar",
   data() {
     return {
-      isMusicOn: false,
       menu: localStorage.menu ? JSON.parse(localStorage.menu) : []
     };
   },
   computed: {
     toggSiderBar() {
       return this.$store.state.common.isCollapse;
-    },
-    langType() {
-      return this.$i18n.locale;
     }
   },
   methods: {
