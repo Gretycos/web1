@@ -74,7 +74,7 @@
                                             type: 'error'
                                         });
                                     }
-                                })
+                                });
                             } else {
                                 this.$message({
                                     message: msg,

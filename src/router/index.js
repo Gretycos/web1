@@ -23,6 +23,9 @@ const video = ()=> import("@/layout/Video")
 //留言板
 const message = ()=> import("@/layout/Message")
 
+//留言板
+const messageDetails = ()=> import("@/layout/MessageDetails")
+
 //我的留言
 const myMessage = ()=> import("@/layout/MyMessage")
 
@@ -76,6 +79,14 @@ const router = new Router({
             title: "我的留言"
           },
           component: myMessage
+        },
+        {
+          name: 'messageDetails',
+          path: '/messageDetails',
+          meta:{
+            title: "留言详情"
+          },
+          component: messageDetails
         }
       ]
     },

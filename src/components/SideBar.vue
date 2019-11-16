@@ -8,7 +8,7 @@
     </h3>
 
     <!-- 循环生成侧栏菜单 -->
-    <el-menu background-color="#3f4d67" text-color="#fff" :default-active="$route.path" :unique-opened="true" :router="true" mode="vertical" :collapse="toggSiderBar">
+    <el-menu background-color="#3f4d67" text-color="#fff" :default-active="$route.path" :unique-opened="true" :router="true" mode="vertical">
 
       <!-- 多级菜单外壳 -->
       <el-submenu index="/">
@@ -108,12 +108,12 @@ export default {
   name: "sidebar",
   data() {
     return {
-      menu: localStorage.menu ? JSON.parse(localStorage.menu) : []
+      // menu: localStorage.menu ? JSON.parse(localStorage.menu) : []
     };
   },
   computed: {
     toggSiderBar() {
-      return this.$store.state.common.isCollapse;
+      // return this.$store.state.common.isCollapse;
     }
   },
   methods: {

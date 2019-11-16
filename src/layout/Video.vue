@@ -62,7 +62,7 @@
         created() {
             if(sessionStorage.username){
                 getVideo().then(res=>{
-                    console.log(res);
+                    // console.log(res);
                     let { msg, status, data } = res;
                     if(status=='200'){
                         this.listVideo=data;

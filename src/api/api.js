@@ -38,10 +38,51 @@ export const getAllMsg = ()=>{
   }).then(res=>res.data)
 }
 
-export const addMsg = params=>{
+export const getMsg = (params) =>{
+  return axios.post('http://127.0.0.1:8080/message/find', Qs.stringify(params),
+    {
+    withCredentials : true
+  }).then(res=>res.data)
+}
+
+export const addMessage = params=>{
   return  axios.post("http://127.0.0.1:8080/message/add", Qs.stringify(params),
     {
       withCredentials : true
     }).then(res=>res.data);
 }
 
+export const updateMsgClickCount = params=>{
+  return  axios.post("http://127.0.0.1:8080/message/update/clickcount", Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data);
+}
+
+export const updateMsgRtime = params=>{
+  return  axios.post("http://127.0.0.1:8080/message/update/uidandrtime", Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data);
+}
+
+export const getRootReplies = params=>{
+  return  axios.post("http://127.0.0.1:8080/message/find/rootReply", Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data);
+}
+
+export const addRootReply = params=>{
+  return  axios.post("http://127.0.0.1:8080/rootReply/add", Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data);
+}
+
+export const deleteRootReply = params=>{
+  return  axios.post("http://127.0.0.1:8080/message/delete", Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data);
+}
