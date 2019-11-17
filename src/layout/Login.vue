@@ -60,7 +60,7 @@
                                     let status1=res1.status;
                                     let data1=res1.data;
                                     if(status1 == '200'){
-                                        sessionStorage.setItem('id', data1.id);
+                                        sessionStorage.setItem('id', data1.username);
                                         sessionStorage.setItem('nickname', data1.nickname);
                                         sessionStorage.setItem('gender', data1.gender);
                                         sessionStorage.setItem('email', data1.email);

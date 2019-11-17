@@ -15,7 +15,7 @@
 
         <!-- 一级菜单包裹层 -->
         <template slot="title">
-          <i class="el-icon-document"></i>
+          <i class="el-icon-tickets"></i>
           <span slot="title">教学大纲</span>
         </template>
 
@@ -35,13 +35,13 @@
 
       <!-- 单级菜单 -->
       <el-menu-item index="/courseware">
-        <i class="el-icon-document"></i>
+        <i class="el-icon-data-board"></i>
         <span slot="title">教学课件</span>
       </el-menu-item>
 
       <!-- 单级菜单 -->
       <el-menu-item index="/video">
-        <i class="el-icon-document"></i>
+        <i class="el-icon-video-play"></i>
         <span slot="title">视频资料</span>
       </el-menu-item>
 
@@ -56,7 +56,7 @@
 
         <!-- 一级菜单包裹层 -->
         <template slot="title">
-          <i class="el-icon-document"></i>
+          <i class="el-icon-chat-line-square"></i>
           <span slot="title">留言</span>
         </template>
 

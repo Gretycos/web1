@@ -12,7 +12,8 @@
           :data="listMessage.slice((currentPage-1)*pagesize,currentPage*pagesize)"
           height="250"
           style="width: 100%"
-          @row-click="openDetails">
+          @row-click="openDetails"
+          :default-sort = "{prop: 'send_time', order: 'descending'}">
           <el-table-column
             prop="title"
             label="标题">
@@ -50,19 +51,74 @@
       </div>
 
     </el-card>
-
+    <div>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <el-row>
+            <el-col :span="4">
+              <i class="el-icon-edit-outline"></i>&nbsp;&nbsp;
+              <span style="font-size: medium">发表留言</span>
+            </el-col>
+          </el-row>
+        </div>
+        <div>
+          <el-row>
+            <el-input
+              type="textarea"
+              placeholder="请输入标题"
+              v-model="textarea_title"
+              maxlength="30"
+              show-word-limit
+              rows="1">
+            </el-input>
+          </el-row>
+          <el-row>
+            <el-input
+              type="textarea"
+              placeholder="请输入内容"
+              v-model="textarea_text"
+              maxlength="140"
+              show-word-limit
+              rows="5">
+            </el-input>
+          </el-row>
+          <el-row class="emit">
+            <el-button type="primary" plain size="small" @click="emitMessage">提交留言</el-button>
+          </el-row>
+        </div>
+      </el-card>
+    </div>
   </div>
+
 </template>
 
 <script>
-    import {getAllMsg,updateMsgClickCount} from "../api/api";
+    import {getAllMsg, updateMsgClickCount, addMessage} from "../api/api";
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
     export default {
         name: "Message",
         data(){
             return{
                 listMessage:[],
                 currentPage:1,
-                pagesize:10
+                pagesize:10,
+                textarea_title:'',
+                textarea_text: '',
+
             }
         },
         created() {
@@ -70,9 +126,10 @@
                 getAllMsg().then(res=>{
                     // console.log(res);
                     let { msg, status, data } = res;
+                    // console.log(data)
                     if(status=='200'){
                         for(let i in data){
-                            if(data[i].state!=0){
+                            if(data[i].state === 1){
                                 this.listMessage.push(data[i]);
                             }
                         }
@@ -120,6 +177,33 @@
                 });
 
             },
+            emitMessage: function () {
+                let params={
+                    id: sessionStorage.id,
+                    send_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
+                    title: this.textarea_title,
+                    text: this.textarea_text
+                }
+                addMessage(params).then(res=>{
+                    let { msg, status, data } = res;
+                    if(status=='200'){
+                        if(data===1){
+                            this.$message({
+                                message: '发表成功',
+                                type: 'success',
+                                duration: 1000
+                            });
+                            this.$router.go(0);
+                        }
+                    }else{
+                        this.$message({
+                            message: msg,
+                            type: 'error',
+                            duration:3000
+                        });
+                    }
+                });
+            }
         }
     }
 </script>
@@ -151,5 +235,9 @@
     top: 0;
     right: 0;
     margin: auto;
+  }
+  .emit{
+    display: flex;
+    justify-content: flex-end;
   }
 </style>

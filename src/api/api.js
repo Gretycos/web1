@@ -38,6 +38,13 @@ export const getAllMsg = ()=>{
   }).then(res=>res.data)
 }
 
+export const getMessagesByUser = (params)=>{
+  return axios.post('http://127.0.0.1:8080/user/getMessages', Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data)
+}
+
 export const getMsg = (params) =>{
   return axios.post('http://127.0.0.1:8080/message/find', Qs.stringify(params),
     {
@@ -60,7 +67,7 @@ export const updateMsgClickCount = params=>{
 }
 
 export const updateMsgRtime = params=>{
-  return  axios.post("http://127.0.0.1:8080/message/update/uidandrtime", Qs.stringify(params),
+  return  axios.post("http://127.0.0.1:8080/message/update/rtime", Qs.stringify(params),
     {
       withCredentials : true
     }).then(res=>res.data);
