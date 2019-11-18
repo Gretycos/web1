@@ -5,6 +5,9 @@ Vue.use(Router)
 //登录
 const login = ()=> import("@/layout/Login")
 
+//注册
+const register = ()=> import("@/layout/Register")
+
 //框架
 const index = ()=> import("@/layout/Index")
 
@@ -96,6 +99,13 @@ const router = new Router({
         title:"登录"
       },
       component: login
+    },
+    {
+      path: "/register",
+      meta:{
+        title:"注册"
+      },
+      component: register
     }
   ]
 })

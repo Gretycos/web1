@@ -8,6 +8,13 @@ export const requestLogin = params =>{
   }).then(res=>res.data);
 }
 
+export const register= params =>{
+  return  axios.post("http://127.0.0.1:8080/register", Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data);
+}
+
 export const getUser = id =>{
   return axios.post("http://127.0.0.1:8080/user/find",Qs.stringify(id),{
     withCredentials : true
@@ -54,6 +61,13 @@ export const getMsg = (params) =>{
 
 export const addMessage = params=>{
   return  axios.post("http://127.0.0.1:8080/message/add", Qs.stringify(params),
+    {
+      withCredentials : true
+    }).then(res=>res.data);
+}
+
+export const deleteMsg = params=>{
+  return  axios.post("http://127.0.0.1:8080/message/delete", Qs.stringify(params),
     {
       withCredentials : true
     }).then(res=>res.data);

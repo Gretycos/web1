@@ -19,7 +19,7 @@
                   </el-image>
                 </el-col>
                 <el-col :span="6" class="title">
-                  <a :href="'http://'+scope.row.src">{{scope.row.name}}.mp4</a>
+                  <a :href="'http://'+scope.row.src+'.zip'">{{scope.row.name}}.mp4</a>
                 </el-col>
                 <el-col :span="6" class="info" style="left:40%;">
                   <p>大小: {{scope.row.scale}}</p>

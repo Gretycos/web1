@@ -13,6 +13,15 @@
           height="250"
           style="width: 100%"
           :default-sort = "{prop: 'send_time', order: 'descending'}">
+          <el-table-column type="expand">
+            <template slot-scope="prop">
+              <el-form label-position="left" inline class="table-expand">
+                <el-form-item label="留言：">
+                  <p style="font-size: large">{{prop.row.text}}</p>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="title"
             label="标题">
@@ -37,6 +46,21 @@
           prop="state"
           label="状态">
           </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="prop">
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete(prop.row)"
+                v-if="prop.row.state==='正常'">删除</el-button>
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete(prop.row)"
+                v-else-if="prop.row.state==='已删除'"
+                disabled>删除</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <el-pagination
           @size-change="handleSizeChange"
@@ -53,7 +77,7 @@
 </template>
 
 <script>
-    import {getMessagesByUser} from "../api/api";
+    import {getMessagesByUser, deleteMsg} from "../api/api";
     export default {
         name: "MyMessage",
         data(){
@@ -99,11 +123,59 @@
             },
             handleCurrentChange:function (currentPage) {
                 this.currentPage = currentPage;
+            },
+            handleDelete:function (row) {
+                this.$confirm('此操作将永久删除该留言, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let params={id:row.id};
+                    let that=this;
+                    deleteMsg(params).then(res=>{
+                        let { msg, status, data } = res;
+                        if(status==='200'){
+                            if(data===1){
+                                this.$message({
+                                    message:'删除成功' ,
+                                    type: 'success',
+                                    duration:1000
+                                });
+                                setTimeout(function () {
+                                    that.$router.go(0);
+                                }, 1500);
+                            }
+                        }else{
+                            this.$message({
+                                message: msg,
+                                type: 'error',
+                                duration:3000
+                            });
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+
             }
         }
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .table-expand {
+    font-size: 0;
+  }
+  .table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  .table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+  }
 </style>
