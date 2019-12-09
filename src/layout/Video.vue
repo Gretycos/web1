@@ -6,7 +6,6 @@
         <i class="el-icon-edit"></i>&nbsp;&nbsp;
         <span style="font-size: larger"><b>视频资料</b></span>
       </div>
-
       <div class="text item">
         <el-table :data="listVideo.slice((currentPage-1)*pagesize,currentPage*pagesize)" stripe style="width: 100%">
           <el-table-column label="视频下载">
@@ -19,7 +18,10 @@
                   </el-image>
                 </el-col>
                 <el-col :span="6" class="title">
-                  <a :href="'http://'+scope.row.src+'.zip'">{{scope.row.name}}.mp4</a>
+                  <a :href="'http://'+scope.row.src">{{scope.row.name}}.mp4</a>
+                </el-col>
+                <el-col :span="6" class="link">
+                  <el-button @click="download(scope.row.name)">下载</el-button>
                 </el-col>
                 <el-col :span="6" class="info" style="left:40%;">
                   <p>大小: {{scope.row.scale}}</p>
@@ -48,7 +50,7 @@
 </template>
 
 <script>
-    import {getVideo} from "../api/api";
+  import {downloadVideo, getVideo} from "../api/api";
     export default {
         name: "Video",
         data(){
@@ -87,7 +89,14 @@
             },
             handleCurrentChange:function (currentPage) {
                 this.currentPage = currentPage;
-            }
+            },
+          download(fileName){
+              fileName=fileName.replace(/\s+/g,'_');
+              let params={
+                fileName:fileName
+              };
+              downloadVideo(params);
+          }
         }
     }
 </script>
@@ -110,7 +119,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    right: 20%;
+    right: 40%;
     margin: auto;
   }
   .info{
@@ -118,6 +127,15 @@
     text-align: center;
     top: 0;
     right: 0;
+    margin: auto;
+  }
+  .link{
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 10%;
     margin: auto;
   }
 </style>

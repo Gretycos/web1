@@ -81,7 +81,6 @@
             }else{
                 this.$router.push("/login");
             }
-
         },
         methods:{
             handleSizeChange:function (size) {
